@@ -3,25 +3,28 @@ package com.olympus.framework.kronus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DynamicArray {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class DynamicArray<E extends Comparable<E>> {
 
     private static final Logger logger = LogManager.getLogger(DynamicArray.class);
-    private int[] data;
+    private final E[] data;
     private int size;
 
     /***
      * @param capacity 设置数组初始容量
      */
-    public DynamicArray(int capacity) {
-        data = new int[capacity];
+    public DynamicArray(Class<E> type, int capacity) {
+        data = (E[]) Array.newInstance(type, capacity);
         size = 0;
     }
 
     /***
      * 默认属猪初始容量10
      */
-    public DynamicArray() {
-        this(10);
+    public DynamicArray(Class<E> type) {
+        this(type, 10);
     }
 
     /**
@@ -50,7 +53,7 @@ public class DynamicArray {
         return size == 0;
     }
 
-    public void add(int e) {
+    public void add(E e) {
         insert(size, e);
     }
 
@@ -58,7 +61,7 @@ public class DynamicArray {
      * @param index 插入数据索引位置
      * @param e     插入值
      */
-    public void insert(int index, int e) {
+    public void insert(int index, E e) {
 
         if (data == null || size == data.length) {
             throw new IllegalArgumentException("add failed, array is full");
@@ -71,8 +74,30 @@ public class DynamicArray {
         for (int i = size - 1; i >= index; i--) {
             data[i + 1] = data[i];
         }
+
         data[index] = e;
         size++;
+    }
+
+    /**
+     * 删除数组中某个元素
+     *
+     * @param index 删除元素索引
+     * @return 返回被删除索引位置的数值
+     */
+    public E remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("remove failed. index is illegal");
+        }
+
+        E flag = data[index];
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
+        }
+        size--;
+        data[size] = null;
+
+        return flag;
     }
 
     @Override
@@ -91,4 +116,39 @@ public class DynamicArray {
         res.append("]");
         return res.toString();
     }
+
+    public E get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("get failed. index is illegal");
+        }
+
+        return data[index];
+    }
+
+    public void set(int index, E e) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("set failed. index is illegal");
+        }
+
+        data[index] = e;
+    }
+
+    public boolean contains(E e) {
+        for (int i = 0; i < size; i++) {
+            if (data[i].compareTo(e) == 0)
+                return true;
+        }
+        return false;
+    }
+
+    public int find(E e) {
+        for (int i = 0; i < size; i++) {
+            if (data[i].compareTo(e) == 0)
+                return i;
+        }
+
+        return -1;
+    }
+
+
 }

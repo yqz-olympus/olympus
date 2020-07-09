@@ -29,8 +29,7 @@ class DynamicArrayTest {
 
     @org.junit.jupiter.api.Test
     void insert() {
-        DynamicArray dy = new DynamicArray(20);
-
+        DynamicArray<Integer> dy = new DynamicArray<>(Integer.class, 20);
         for (int i = 0; i < 10; i++) {
             dy.add(i);
         }
@@ -48,8 +47,7 @@ class DynamicArrayTest {
 
     @org.junit.jupiter.api.Test
     void testToString() {
-        DynamicArray dy = new DynamicArray(20);
-
+        DynamicArray<Integer> dy = new DynamicArray<Integer>(Integer.class, 20);
         for (int i = 0; i < 10; i++) {
             dy.add(i);
         }
@@ -57,6 +55,8 @@ class DynamicArrayTest {
         assertEquals(dy.size(), 10);
         assertEquals(dy.capacity(), 20);
         assertEquals(dy.toString(), "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]");
+
         LOGGER.info(dy.toString());
+
     }
 }
