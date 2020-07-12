@@ -10,27 +10,46 @@ class LinkedListTest {
     private static final Logger LOGGER = LogManager.getLogger(LinkedListTest.class);
 
     @Test
-    static void insert() {
+    void simulationQueueTest() {
         LinkedList<Integer> list = new LinkedList<>();
+        assertEquals(list.size(), 0);
+        assertTrue(list.isEmpty());
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             list.insert(i);
         }
 
-        Node<Integer> head = list.getHead();
-        while (head != null) {
-            LOGGER.info(head.getValue());
-            head = head.getNext();
+        assertEquals(list.size(), 20);
+        assertFalse(list.isEmpty());
+
+        int x = 0;
+        while (!list.isEmpty()) {
+            int n = list.dequeue();
+            LOGGER.info(n);
+            assertEquals(n, x++);
         }
 
-/*
+    }
 
-        Node<Integer> tail = list.getTail();
-        while (tail != null) {
-            LOGGER.info(tail.getValue());
-            tail = tail.getPrev();
+    @Test
+    void simulationStackTest() {
+
+        LinkedList<Integer> stack = new LinkedList<>();
+        assertEquals(stack.size(), 0);
+        assertTrue(stack.isEmpty());
+        int n = 10;
+        for (int i = 0; i < n; i++) {
+            stack.insert(i);
         }
 
-*/
+        assertEquals(stack.size(), 10);
+        assertFalse(stack.isEmpty());
+
+        while (!stack.isEmpty()) {
+            int temp = stack.pop();
+            LOGGER.info(temp);
+            assertEquals(temp, --n);
+        }
+
     }
 }
