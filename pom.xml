@@ -17,6 +17,7 @@
     <modules>
         <module>nyx</module>
         <module>kronus</module>
+        <module>tethys</module>
     </modules>
 
 
