@@ -18,6 +18,7 @@
         <module>nyx</module>
         <module>kronus</module>
         <module>tethys</module>
+        <module>cyclopes</module>
     </modules>
 
 
