@@ -60,8 +60,23 @@ public class BinarySearchTree<E extends Comparable<E>> implements ITree<E> {
     }
 
     @Override
-    public E search(E e) {
-        return null;
+    public boolean contains(E e) {
+        return contains(root, e);
+    }
+
+    private boolean contains(Node<E> node, E e) {
+
+        if (node == null) {
+            return false;
+        }
+
+        if (node.e.compareTo(e) == 0) {
+            return true;
+        } else if (node.e.compareTo(e) < 0) {
+            return contains(node.right, e);
+        } else {
+            return contains(node.left, e);
+        }
     }
 
     @Override

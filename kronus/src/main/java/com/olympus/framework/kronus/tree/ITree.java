@@ -7,7 +7,7 @@ public interface ITree<E> {
 
     public void insert(E e);
 
-    public E search(E e);
+    public boolean contains(E e);
 
     public E delete(E e);
 }
