@@ -20,6 +20,12 @@ public class Helper {
             return array;
         }
 
+        /***
+         * 数组基本有序的情况下，效率很高
+         * @param array 待排序数组
+         * @param <T> 组成数组的类型
+         * @return 返回排序后数组与array是同一个数组
+         */
         public static <T extends Comparable<T>> T[] insert(T[] array) {
 
             for (int i = 1; i < array.length; i++) {
