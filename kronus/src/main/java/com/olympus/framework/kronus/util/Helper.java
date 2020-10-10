@@ -23,15 +23,19 @@ public class Helper {
         public static <T extends Comparable<T>> T[] insert(T[] array) {
 
             for (int i = 1; i < array.length; i++) {
-                for (int j = i; j > 0; j--) {
-                    if (array[j].compareTo(array[j - 1]) < 0) {
-                        T temp = array[j];
+                T temp = array[i];
+                int j = i;
+                for (; j > 0; j--) {
+                    if (temp.compareTo(array[j - 1]) < 0) {
                         array[j] = array[j - 1];
-                        array[j - 1] = temp;
+                    } else {
+                        break;
                     }
                 }
-            }
 
+                if (j != i)
+                    array[j] = temp;
+            }
             return array;
         }
     }
