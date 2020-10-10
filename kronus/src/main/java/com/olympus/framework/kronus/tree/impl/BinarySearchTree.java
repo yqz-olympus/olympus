@@ -1,5 +1,9 @@
 package com.olympus.framework.kronus.tree.impl;
 
+import com.olympus.framework.kronus.linkedlist.List;
+import com.olympus.framework.kronus.linkedlist.impl.LinkedList;
+import com.olympus.framework.kronus.queue.Queue;
+import com.olympus.framework.kronus.queue.impl.LinkedListQueue;
 import com.olympus.framework.kronus.tree.ITree;
 
 /**
@@ -40,6 +44,11 @@ public class BinarySearchTree<E extends Comparable<E>> implements ITree<E> {
 
     @Override
     public void insert(E e) {
+
+        if (e == null) {
+            throw new NullPointerException("bst insert function param e is null");
+        }
+
         root = insert(root, e);
     }
 
@@ -82,5 +91,56 @@ public class BinarySearchTree<E extends Comparable<E>> implements ITree<E> {
     @Override
     public E delete(E e) {
         return null;
+    }
+
+    @Override
+    public Queue<E> preOrder() {
+        Queue<E> queue = new LinkedListQueue<>();
+        preOrder(root, queue);
+        return queue;
+    }
+
+    private void preOrder(Node<E> node, Queue<E> queue) {
+        if (node == null) {
+            return;
+        }
+
+        queue.enqueue(node.e);
+        preOrder(node.left, queue);
+        preOrder(node.right, queue);
+    }
+
+    @Override
+    public Queue<E> inOrder() {
+        Queue<E> queue = new LinkedListQueue<>();
+        inOrder(root, queue);
+        return queue;
+    }
+
+    private void inOrder(Node<E> node, Queue<E> queue) {
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left, queue);
+        queue.enqueue(node.e);
+        inOrder(node.right, queue);
+    }
+
+    @Override
+    public Queue<E> postOrder() {
+        Queue<E> queue = new LinkedListQueue<>();
+        postOrder(root, queue);
+        return queue;
+    }
+
+    private void postOrder(Node<E> node, Queue<E> queue) {
+        if (node == null) {
+            return;
+        }
+
+        postOrder(node.left, queue);
+        postOrder(node.right, queue);
+        queue.enqueue(node.e);
     }
 }
