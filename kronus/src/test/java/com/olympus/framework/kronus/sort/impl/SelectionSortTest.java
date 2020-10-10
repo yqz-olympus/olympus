@@ -21,7 +21,8 @@ class SelectionSortTest {
         array[8] = 90;
         array[9] = 66;
 
-        Integer[] test = Helper.sort.selection(array);
+        //Integer[] test = Helper.sort.selection(array);
+        Integer[] test = Helper.sort.insert(array);
 
         assertEquals(test[0], 51);
         assertEquals(test[1], 66);
